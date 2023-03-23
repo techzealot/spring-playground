@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Map;
 
+
 @SpringBootApplication()
 @RestController
 public class SpringPlaygroundApplication {
@@ -30,7 +31,7 @@ public class SpringPlaygroundApplication {
     }
 
     @GetMapping("/test")
-    public void testSql(){
+    public void testSql() {
         List<Map<String, Object>> maps = jdbcTemplate.queryForList("select * from users");
         System.out.println(maps);
         applicationService.callTestA();
