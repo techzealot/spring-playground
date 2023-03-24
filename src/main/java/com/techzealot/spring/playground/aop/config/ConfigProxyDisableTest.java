@@ -3,11 +3,12 @@ package com.techzealot.spring.playground.aop.config;
 import com.github.dockerjava.zerodep.shaded.org.apache.hc.core5.util.Asserts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 关闭方法代理,必须采用构造器注入形式,否则无法保证同一个Bean
+ * 关闭方法代理,必须采用参数注入形式,否则无法保证同一个Bean
  */
 @Configuration(proxyBeanMethods = false)
 public class ConfigProxyDisableTest {
@@ -22,20 +23,24 @@ public class ConfigProxyDisableTest {
     }
 
     /**
+     * Autowired使用在方法上会使spring在参数注入时调用该方法，其调用时机早于PostConstruct
+     *
      * @return
      */
-    @Bean
-    public String check1() {
+    @Autowired
+    public void check1() {
         TestObject o1 = testObject1();
         TestObject o2 = testObject1();
         Asserts.check(o1 != o2, "must be two bean");
-        return "";
     }
 
-    @Bean
-    public String inject1(TestObject testObject) {
-        Asserts.notNull(testObject, "must be not null");
-        return "";
+    @Configuration
+    public static class Test {
+
+        @Autowired
+        public void inject1(TestObject testObject) {
+            Asserts.notNull(testObject, "must be not null");
+        }
     }
 
     private static class TestObject {
