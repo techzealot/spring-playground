@@ -1,7 +1,9 @@
 package com.techzealot.spring.playground;
 
-import com.techzealot.spring.playground.aop.ApplicationService;
-import com.techzealot.spring.playground.aop.DomainService;
+import com.techzealot.spring.playground.aop.aspectj.TestService;
+import com.techzealot.spring.playground.aop.manual.TestManualService;
+import com.techzealot.spring.playground.domain.ApplicationService;
+import com.techzealot.spring.playground.domain.DomainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,6 +26,10 @@ public class SpringPlaygroundApplication {
     private ApplicationService applicationService;
     @Autowired
     private DomainService domainService;
+    @Autowired
+    private TestService testService;
+    @Autowired
+    private TestManualService testManualService;
 
     public static void main(String[] args) {
         System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "./cglib");
@@ -36,6 +42,20 @@ public class SpringPlaygroundApplication {
         System.out.println(maps);
         applicationService.callTestA();
         applicationService.callTestB();
+    }
+
+    @GetMapping("/testAop")
+    public void testAop() throws InterruptedException {
+        //内部调用aop失效
+        testService.execute();
+        testService.innerCall();
+    }
+
+    @GetMapping("/testManualAop")
+    public void testManualAop() throws InterruptedException {
+        //内部调用aop失效
+        testManualService.execute();
+        testManualService.innerCall();
     }
 
 }

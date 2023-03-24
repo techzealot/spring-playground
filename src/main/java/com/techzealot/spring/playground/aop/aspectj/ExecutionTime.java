@@ -1,4 +1,4 @@
-package com.techzealot.aspectj;
+package com.techzealot.spring.playground.aop.aspectj;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

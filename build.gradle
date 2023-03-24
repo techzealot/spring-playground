@@ -24,10 +24,12 @@ ext {
 }
 
 dependencies {
-    implementation 'org.aspectj:aspectjrt:1.9.19'
-
     //该依赖引入的spring-data-jdbc有获取数据库连接的代码会触发数据库连接有效性检查
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+    //spring-boot-starter-aop包含aspectjweaver依赖,而aspectjweaver包含aspectjrt所有类
+    //implementation 'org.aspectj:aspectjrt:1.9.19'
+    //仅仅引入该依赖会创建延迟加载的数据库连接池,不会触发初始化
     //implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'com.mysql:mysql-connector-j:8.0.32'
 

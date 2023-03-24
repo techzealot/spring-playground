@@ -1,4 +1,4 @@
-package com.techzealot.spring.playground.aop;
+package com.techzealot.spring.playground.domain;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

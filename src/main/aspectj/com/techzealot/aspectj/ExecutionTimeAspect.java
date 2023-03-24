@@ -1,5 +1,6 @@
 package com.techzealot.aspectj;
 
+import com.techzealot.spring.playground.aop.aspectj.ExecutionTime;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -13,6 +14,7 @@ public class ExecutionTimeAspect {
 
     /**
      * ajc编译器bug,需要增加这个条件execution(* *(..)),否则会被增强两次
+     *
      * @param executionTime
      */
     @Pointcut("execution(* *(..))&&@annotation(executionTime)")

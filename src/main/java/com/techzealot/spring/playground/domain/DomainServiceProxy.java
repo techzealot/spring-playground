@@ -1,11 +1,11 @@
-package com.techzealot.spring.playground.aop;
+package com.techzealot.spring.playground.domain;
 
 public class DomainServiceProxy extends DomainService {
     private DomainService target;
 
     public DomainServiceProxy() {
     }
-    
+
     public void setTarget(DomainService target) {
         this.target = target;
     }
