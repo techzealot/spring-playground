@@ -27,7 +27,7 @@ public class CglibProxyFactory {
                 System.out.println("target: after " + method.getName());
                 return result;
             } else {
-                return proxy.invoke(obj, args);
+                return proxy.invoke(target, args);
             }
         });
         return (T) enhancer.create();
