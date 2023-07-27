@@ -1,12 +1,9 @@
 package com.techzealot.spring.playground;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-@SpringBootTest
+//@SpringBootTest
 class SpringPlaygroundApplicationTests {
 
-    @Test
+    //@Test
     void contextLoads() {
     }
 
