@@ -8,10 +8,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class AppUserControllerTest extends SpringControllerParentTest {
+class AppUserControllerTest extends SpringControllerParentTest {
 
     @Test
-    public void testFindById() throws Exception {
+    void testFindById() throws Exception {
         mvc.perform(get("/user/1").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
