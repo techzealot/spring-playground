@@ -3,6 +3,8 @@ plugins {
     id 'org.springframework.boot' version '3.0.4'
     id 'io.spring.dependency-management' version '1.1.0'
     id 'io.freefair.aspectj' version "6.6.3"
+
+    id 'jacoco'
 }
 
 group = 'com.techzealot'
@@ -60,8 +62,16 @@ dependencyManagement {
     }
 }
 
-tasks.named('test') {
+test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.enabled true
+    }
 }
 
 bootJar {

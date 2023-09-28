@@ -2,8 +2,8 @@ package com.techzealot.spring.playground.orm.controller;
 
 
 import com.techzealot.spring.playground.orm.dto.AppUserDto;
-import com.techzealot.spring.playground.orm.dto.mapper.AppUserMapper;
 import com.techzealot.spring.playground.orm.jpa.repository.AppUserRepository;
+import com.techzealot.spring.playground.orm.mapper.AppUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
