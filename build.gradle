@@ -65,6 +65,7 @@ dependencyManagement {
 test {
     useJUnitPlatform()
     finalizedBy jacocoTestReport
+    reports.junitXml.enabled(true)
 }
 
 jacocoTestReport {
