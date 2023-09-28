@@ -32,7 +32,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ApiResult<?> handle(Exception e, ServletRequest request) {
-        log.info("input:{}", RequestUtils.getInputAsString(request));
+        log.error("input:{}", RequestUtils.getInputAsString(request));
         log.error(e.getMessage(), e);
         return ApiResult.error(e.getMessage());
     }
@@ -48,7 +48,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiResult<?> urlParametersExceptionHandle(ConstraintViolationException e, ServletRequest request) throws JsonProcessingException {
         //可以获取到原始参数
-        log.info("input:{}", RequestUtils.getInputAsString(request));
+        log.error("input:{}", RequestUtils.getInputAsString(request));
         log.error(e.getMessage(), e);
         //收集所有错误信息,可能有多个不满足条件的字段
         List<String> errorMsg = e.getConstraintViolations()
@@ -66,7 +66,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiResult<?> jsonExceptionHandle(MethodArgumentNotValidException e, ServletRequest request) throws JsonProcessingException {
-        log.info("input:{}", RequestUtils.getInputAsString(request));
+        log.error("input:{}", RequestUtils.getInputAsString(request));
         log.error(e.getMessage(), e);
         BindingResult bindingResult = e.getBindingResult();
         //收集所有错误信息
@@ -85,7 +85,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiResult<?> formExceptionHandle(BindException e, ServletRequest request) throws JsonProcessingException {
-        log.info("input:{}", RequestUtils.getInputAsString(request));
+        log.error("input:{}", RequestUtils.getInputAsString(request));
         log.error(e.getMessage(), e);
         BindingResult bindingResult = e.getBindingResult();
         //收集所有错误信息
@@ -104,7 +104,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = {BusinessException.class})
     @ResponseBody
     public ApiResult<?> handleBusinessException(BusinessException e, ServletRequest request) throws JsonProcessingException {
-        log.info("input:{}", RequestUtils.getInputAsString(request));
+        log.error("input:{}", RequestUtils.getInputAsString(request));
         log.warn(e.getMessage(), e);
         return ApiResult.error(BaseResultEnum.INTERNAL_ERROR, e.getMessage());
     }

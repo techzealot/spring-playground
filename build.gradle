@@ -24,27 +24,33 @@ ext {
 }
 
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     //该依赖引入的spring-data-jdbc有获取数据库连接的代码会触发数据库连接有效性检查
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-aop'
     //spring-boot-starter-aop包含aspectjweaver依赖,而aspectjweaver包含aspectjrt所有类
-    //implementation 'org.aspectj:aspectjrt:1.9.19'
+    implementation 'org.aspectj:aspectjrt:1.9.19'
     //仅仅引入该依赖会创建延迟加载的数据库连接池,不会触发初始化
     //implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'com.mysql:mysql-connector-j:8.0.32'
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    //lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
+    //mapstruct
+    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     testImplementation 'org.testcontainers:junit-jupiter'
 
     //注意依赖的作用域
-    implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap:4.0.1'
-    implementation 'com.playtika.testcontainers:embedded-mysql'
+    testImplementation 'org.springframework.cloud:spring-cloud-starter-bootstrap:4.0.1'
+    testImplementation 'com.playtika.testcontainers:embedded-mysql'
 }
 
 dependencyManagement {
@@ -56,4 +62,11 @@ dependencyManagement {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+bootJar {
+    exclude("application-test.*", "application-local.*", "bootstrap.*")
+    layered {
+        enabled.set(true)
+    }
 }
