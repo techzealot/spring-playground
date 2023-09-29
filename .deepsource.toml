@@ -5,3 +5,9 @@ name = "java"
 enabled = true
 [analyzers.meta]
 runtime_version = "17"
+[[analyzers]]
+name = "test-coverage"
+enabled = true
+[[analyzers]]
+name = "secrets"
+enabled = true
