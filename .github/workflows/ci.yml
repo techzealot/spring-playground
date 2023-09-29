@@ -40,7 +40,7 @@ jobs:
           fail_ci_if_error: true
           verbose: true
       - name: report coverage to deepsource
-        run: \
+        run: |
           curl deepsource.io/cli | sh \
           && ./bin/deepsource report --analyzer test-coverage --key java --value-file ./build/reports/jacoco/test/jacocoTestReport.xml
       - name: Test Report
