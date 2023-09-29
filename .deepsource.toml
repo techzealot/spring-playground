@@ -2,6 +2,6 @@ version = 1
 
 [[analyzers]]
 name = "java"
-
-  [analyzers.meta]
-  runtime_version = "17"
+enabled = true
+[analyzers.meta]
+runtime_version = "17"
