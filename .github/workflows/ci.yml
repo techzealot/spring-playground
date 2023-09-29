@@ -55,5 +55,4 @@ jobs:
           ./bin/deepsource report --analyzer test-coverage --key java --value-file ./build/reports/jacoco/test/jacocoTestReport.xml
         env:
           DEEPSOURCE_DSN: ${{ secrets.DEEPSOURCE_DSN }}
-        with:
-          fail_ci_if_error: false
+        continue-on-error: true
