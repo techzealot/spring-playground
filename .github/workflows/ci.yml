@@ -39,9 +39,6 @@ jobs:
           files: ./build/reports/jacoco/test/jacocoTestReport.xml
           fail_ci_if_error: true
           verbose: true
-      - name: report coverage to deepsource
-        run: |
-          curl deepsource.io/cli | sh && ./bin/deepsource report --analyzer test-coverage --key java --value-file ./build/reports/jacoco/test/jacocoTestReport.xml
       - name: Test Report
         uses: dorny/test-reporter@v1
         if: success() || failure()    # run this step even if previous step failed
@@ -49,3 +46,12 @@ jobs:
           name: JUnit Tests            # Name of the check run which will be created
           path: ./build/test-results/test/TEST-*.xml    # Path to test results
           reporter: java-junit        # Format of test results
+      - name: Report results to DeepSource
+        run: |
+          # Install deepsource CLI
+          curl https://deepsource.io/cli | sh
+          
+          # From the root directory, run the report coverage command
+          ./bin/deepsource report --analyzer test-coverage --key java --value-file ./build/reports/jacoco/test/jacocoTestReport.xml
+        env:
+          DEEPSOURCE_DSN: ${{ secrets.DEEPSOURCE_DSN }}
