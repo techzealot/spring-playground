@@ -47,6 +47,7 @@ jobs:
           path: ./build/test-results/test/TEST-*.xml    # Path to test results
           reporter: java-junit        # Format of test results
       - name: Report results to DeepSource
+        if: ${{ github.ref == 'refs/heads/master'}}
         run: |
           # Install deepsource CLI
           curl https://deepsource.io/cli | sh
