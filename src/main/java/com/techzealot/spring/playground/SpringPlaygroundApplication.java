@@ -5,6 +5,8 @@ import com.techzealot.spring.playground.aop.manual.TestManualService;
 import com.techzealot.spring.playground.domain.ApplicationService;
 import com.techzealot.spring.playground.domain.DomainService;
 import com.techzealot.spring.playground.ioc.circular.AService;
+import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,9 +14,6 @@ import org.springframework.cglib.core.DebuggingClassWriter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.Map;
 
 
 @SpringBootApplication()

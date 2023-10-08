@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.techzealot.spring.playground.entity.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.constraints.NotNull;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 /**
  * 1.对于get query string传参,servlet输入流中无需底层实现填充数据
@@ -36,10 +35,12 @@ public class RequestReuseTestController {
     private ObjectMapper mapper;
 
     @RequestMapping("/formData")
-    public String testFormData(@Validated User user, HttpServletRequest request, @RequestPart("file") MultipartFile file) throws IOException {
+    public String testFormData(@Validated User user, HttpServletRequest request,
+                               @RequestPart("file") MultipartFile file) throws IOException {
         log.info("user:{},file:{}", user, file.getOriginalFilename());
         //body数据已被读取
-        log.info("request:{}", StreamUtils.copyToString(request.getInputStream(), StandardCharsets.UTF_8));
+        log.info("request:{}",
+            StreamUtils.copyToString(request.getInputStream(), StandardCharsets.UTF_8));
         log.info("params map:{}", mapper.writeValueAsString(request.getParameterMap()));
         return "ok";
     }
@@ -48,16 +49,19 @@ public class RequestReuseTestController {
     public String testFormUrl(@Validated User user, HttpServletRequest request) throws IOException {
         log.info("user:{}", user);
         //body数据已被读取
-        log.info("request:{}", StreamUtils.copyToString(request.getInputStream(), StandardCharsets.UTF_8));
+        log.info("request:{}",
+            StreamUtils.copyToString(request.getInputStream(), StandardCharsets.UTF_8));
         log.info("params map:{}", mapper.writeValueAsString(request.getParameterMap()));
         return "ok";
     }
 
     @RequestMapping("/json1")
-    public String testJson1(@Validated @RequestBody User user, HttpServletRequest request) throws IOException {
+    public String testJson1(@Validated @RequestBody User user, HttpServletRequest request)
+        throws IOException {
         log.info("user:{}", user);
         //可获取数据
-        log.info("request:{}", StreamUtils.copyToString(request.getInputStream(), StandardCharsets.UTF_8));
+        log.info("request:{}",
+            StreamUtils.copyToString(request.getInputStream(), StandardCharsets.UTF_8));
         log.info("request:{}", RequestUtils.getBodyAsString(request));
         log.info("params map:{}", mapper.writeValueAsString(request.getParameterMap()));
         return "ok";
@@ -66,17 +70,20 @@ public class RequestReuseTestController {
     @RequestMapping("/json2")
     public String testJson2(HttpServletRequest request) throws IOException {
         //可获取数据
-        log.info("request:{}", StreamUtils.copyToString(request.getInputStream(), StandardCharsets.UTF_8));
+        log.info("request:{}",
+            StreamUtils.copyToString(request.getInputStream(), StandardCharsets.UTF_8));
         log.info("params map:{}", mapper.writeValueAsString(request.getParameterMap()));
         return "ok";
     }
 
     @RequestMapping("/param")
-    public String testParam(@NotNull(message = "name不能为空") String name, @Range(min = 0, max = 120) int age
-            , HttpServletRequest request) throws IOException {
+    public String testParam(@NotNull(message = "name不能为空") String name,
+                            @Range(min = 0, max = 120) int age
+        , HttpServletRequest request) throws IOException {
         log.info("name:{},age:{}", name, age);
         //body无数据
-        log.info("request:{}", StreamUtils.copyToString(request.getInputStream(), StandardCharsets.UTF_8));
+        log.info("request:{}",
+            StreamUtils.copyToString(request.getInputStream(), StandardCharsets.UTF_8));
         log.info("params map:{}", mapper.writeValueAsString(request.getParameterMap()));
         return "ok";
     }

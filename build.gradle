@@ -5,6 +5,8 @@ plugins {
     id 'io.freefair.aspectj' version "6.6.3"
 
     id 'jacoco'
+
+    id 'checkstyle'
 }
 
 group = 'com.techzealot'
@@ -82,5 +84,18 @@ bootJar {
     exclude("application-test.*", "application-local.*", "bootstrap.*")
     layered {
         enabled.set(true)
+    }
+}
+
+checkstyle {
+    toolVersion '10.12.4'
+    maxWarnings = 0
+    ignoreFailures true
+}
+
+tasks.withType(Checkstyle).configureEach {
+    reports {
+        xml.required.set(false)
+        html.required.set(true)
     }
 }

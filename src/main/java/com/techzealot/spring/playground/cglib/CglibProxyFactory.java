@@ -1,9 +1,8 @@
 package com.techzealot.spring.playground.cglib;
 
+import java.util.List;
 import org.springframework.cglib.proxy.Enhancer;
 import org.springframework.cglib.proxy.MethodInterceptor;
-
-import java.util.List;
 
 public class CglibProxyFactory {
     /**

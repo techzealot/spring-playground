@@ -4,24 +4,6 @@ import org.springframework.aop.MethodBeforeAdvice;
 import org.springframework.aop.framework.ProxyFactory;
 
 public class ProxyFactoryExamples {
-    public static class TestObject {
-        public void test() {
-            System.out.println("run test");
-        }
-    }
-
-    public static interface TestInterface {
-        void execute();
-    }
-
-    public static class TestInterfaceImpl implements TestInterface {
-
-        @Override
-        public void execute() {
-            System.out.println("run execute");
-        }
-    }
-
     public static void testJDKProxy() {
         TestInterface proxy = createJDKProxy(new TestInterfaceImpl(), TestInterface.class);
         proxy.execute();
@@ -62,6 +44,24 @@ public class ProxyFactoryExamples {
     public static void main(String[] args) {
         testJDKProxy();
         testCglibProxy();
+    }
+
+    public static interface TestInterface {
+        void execute();
+    }
+
+    public static class TestObject {
+        public void test() {
+            System.out.println("run test");
+        }
+    }
+
+    public static class TestInterfaceImpl implements TestInterface {
+
+        @Override
+        public void execute() {
+            System.out.println("run execute");
+        }
     }
 
 }

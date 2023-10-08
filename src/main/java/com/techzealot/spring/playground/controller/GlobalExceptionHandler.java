@@ -3,6 +3,8 @@ package com.techzealot.spring.playground.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.servlet.ServletRequest;
 import jakarta.validation.ConstraintViolationException;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
@@ -12,9 +14,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 对于application/json类型请求需要从body中获取，需要处理流只能能读一次问题
@@ -46,13 +45,15 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = {ConstraintViolationException.class})
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ApiResult<?> urlParametersExceptionHandle(ConstraintViolationException e, ServletRequest request) throws JsonProcessingException {
+    public ApiResult<?> urlParametersExceptionHandle(ConstraintViolationException e,
+                                                     ServletRequest request)
+        throws JsonProcessingException {
         //可以获取到原始参数
         log.error("input:{}", RequestUtils.getInputAsString(request));
         log.error(e.getMessage(), e);
         //收集所有错误信息,可能有多个不满足条件的字段
         List<String> errorMsg = e.getConstraintViolations()
-                .stream().map(s -> s.getMessage()).collect(Collectors.toList());
+            .stream().map(s -> s.getMessage()).collect(Collectors.toList());
         return ApiResult.error(BaseResultEnum.INVALID_PARAMETER, errorMsg.toString());
     }
 
@@ -65,13 +66,14 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ApiResult<?> jsonExceptionHandle(MethodArgumentNotValidException e, ServletRequest request) throws JsonProcessingException {
+    public ApiResult<?> jsonExceptionHandle(MethodArgumentNotValidException e,
+                                            ServletRequest request) throws JsonProcessingException {
         log.error("input:{}", RequestUtils.getInputAsString(request));
         log.error(e.getMessage(), e);
         BindingResult bindingResult = e.getBindingResult();
         //收集所有错误信息
         List<String> errorMsg = bindingResult.getFieldErrors().stream()
-                .map(s -> s.getDefaultMessage()).collect(Collectors.toList());
+            .map(s -> s.getDefaultMessage()).collect(Collectors.toList());
         return ApiResult.error(BaseResultEnum.INVALID_PARAMETER, errorMsg.toString());
     }
 
@@ -84,13 +86,14 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = {BindException.class})
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ApiResult<?> formExceptionHandle(BindException e, ServletRequest request) throws JsonProcessingException {
+    public ApiResult<?> formExceptionHandle(BindException e, ServletRequest request)
+        throws JsonProcessingException {
         log.error("input:{}", RequestUtils.getInputAsString(request));
         log.error(e.getMessage(), e);
         BindingResult bindingResult = e.getBindingResult();
         //收集所有错误信息
         List<String> errorMsg = bindingResult.getFieldErrors().stream()
-                .map(s -> s.getDefaultMessage()).collect(Collectors.toList());
+            .map(s -> s.getDefaultMessage()).collect(Collectors.toList());
         return ApiResult.error(BaseResultEnum.INVALID_PARAMETER, errorMsg.toString());
 
     }
@@ -103,7 +106,8 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = {BusinessException.class})
     @ResponseBody
-    public ApiResult<?> handleBusinessException(BusinessException e, ServletRequest request) throws JsonProcessingException {
+    public ApiResult<?> handleBusinessException(BusinessException e, ServletRequest request)
+        throws JsonProcessingException {
         log.error("input:{}", RequestUtils.getInputAsString(request));
         log.warn(e.getMessage(), e);
         return ApiResult.error(BaseResultEnum.INTERNAL_ERROR, e.getMessage());

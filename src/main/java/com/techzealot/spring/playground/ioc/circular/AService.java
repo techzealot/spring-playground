@@ -10,13 +10,13 @@ public class AService {
     private BService bService;
 
     /**
-     * 非Lazy模式注入LazyBean会导致延迟失效,未达到lazy意图的使用方式
+     * 非Lazy模式注入LazyBean会导致延迟失效,未达到lazy意图的使用方式.
      */
     @Autowired
     private CService cService;
 
     /**
-     * Lazy模式注入LazyBean,bean会在使用时初始化,正确使用方式
+     * Lazy模式注入LazyBean,bean会在使用时初始化,正确使用方式.
      */
     @Autowired
     @Lazy
