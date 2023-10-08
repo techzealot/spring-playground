@@ -1,11 +1,10 @@
 package com.techzealot.spring.playground.aop.manual;
 
 import com.techzealot.spring.playground.aop.aspectj.ExecutionTime;
-import org.springframework.stereotype.Service;
-
 import java.time.temporal.ChronoUnit;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
+import org.springframework.stereotype.Service;
 
 @Service
 public class TestManualService {

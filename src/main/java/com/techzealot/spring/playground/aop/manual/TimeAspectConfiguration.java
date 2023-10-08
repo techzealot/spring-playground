@@ -2,6 +2,8 @@ package com.techzealot.spring.playground.aop.manual;
 
 
 import com.techzealot.spring.playground.aop.aspectj.ExecutionTime;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.slf4j.Logger;
@@ -15,9 +17,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
 import org.springframework.core.Ordered;
-
-import java.time.Duration;
-import java.time.temporal.ChronoUnit;
 
 @Configuration
 @ConditionalOnProperty(value = "aop.time.expression")
@@ -55,9 +54,9 @@ public class TimeAspectConfiguration {
             long end = System.nanoTime();
             ExecutionTime anno = invocation.getMethod().getAnnotation(ExecutionTime.class);
             logger.info("method {} execution time: {} {}",
-                    invocation.getMethod().getName(),
-                    Duration.of(end - start, ChronoUnit.NANOS).get(anno.unit()),
-                    anno.unit().name());
+                invocation.getMethod().getName(),
+                Duration.of(end - start, ChronoUnit.NANOS).get(anno.unit()),
+                anno.unit().name());
             return proceed;
         }
     }

@@ -1,6 +1,8 @@
 package com.techzealot.spring.playground.aop.aspectj;
 
 
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -12,9 +14,6 @@ import org.springframework.context.annotation.Role;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-
-import java.time.Duration;
-import java.time.temporal.ChronoUnit;
 
 @Aspect
 @Order(Ordered.LOWEST_PRECEDENCE - 1)
@@ -41,9 +40,9 @@ public class TimeAspect {
         Object proceed = pjp.proceed();
         long end = System.nanoTime();
         logger.info("method {} execution time: {} {}",
-                pjp.getSignature().getName(),
-                Duration.of(end - start, ChronoUnit.NANOS).get(executionTime.unit()),
-                executionTime.unit().name());
+            pjp.getSignature().getName(),
+            Duration.of(end - start, ChronoUnit.NANOS).get(executionTime.unit()),
+            executionTime.unit().name());
         return proceed;
     }
 }

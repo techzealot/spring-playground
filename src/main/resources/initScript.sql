@@ -9,9 +9,9 @@ CREATE TABLE `users`
 CREATE TABLE app_user
 (
     id      BIGINT AUTO_INCREMENT NOT NULL,
-    age     INT                   NULL,
-    name    VARCHAR(255)          NOT NULL,
-    role_id BIGINT                NOT NULL,
+    age     INT NULL,
+    name    VARCHAR(255) NOT NULL,
+    role_id BIGINT       NOT NULL,
     CONSTRAINT pk_app_user PRIMARY KEY (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
@@ -19,8 +19,8 @@ CREATE TABLE app_user
 CREATE TABLE `role`
 (
     id            BIGINT AUTO_INCREMENT NOT NULL,
-    name          VARCHAR(255)          NOT NULL,
-    `description` VARCHAR(255)          NOT NULL,
+    name          VARCHAR(255) NOT NULL,
+    `description` VARCHAR(255) NOT NULL,
     CONSTRAINT pk_role PRIMARY KEY (id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 

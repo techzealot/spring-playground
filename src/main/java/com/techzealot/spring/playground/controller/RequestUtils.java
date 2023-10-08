@@ -3,9 +3,8 @@ package com.techzealot.spring.playground.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletRequest;
-import org.springframework.http.MediaType;
-
 import java.nio.charset.StandardCharsets;
+import org.springframework.http.MediaType;
 
 public abstract class RequestUtils {
     private static final ObjectMapper objectMapper = new ObjectMapper();
